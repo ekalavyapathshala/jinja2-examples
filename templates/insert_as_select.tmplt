@@ -1,0 +1,22 @@
+
+INSERT INTO MYDB.MY_SCHEMA.MY_TABLE VALUES
+(
+    {%- for column, alias, column_pos, tot_size in zipped_col_info_var %}
+        {%- if column_pos == tot_size %}
+            {{ alias }}
+        {%- else %}
+            {{ alias }},
+         {%- endif %}
+    {%- endfor %}
+
+)
+
+SELECT
+{%- for column, alias, column_pos, tot_size in zipped_col_info_var %}
+    {%- if column_pos == tot_size %}
+        {{ column }} as {{ alias }}
+    {%- else %}
+        {{ column }} as {{ alias }},
+    {%- endif %}
+{%- endfor %}
+FROM MYDB.MY_OTHER_SCHEMA.MY_TABLE
