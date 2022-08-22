@@ -1,0 +1,12 @@
+{% set col_list = table_name|tbl_col_map -%}
+create view {{table_name|get_view}}
+as
+select
+{%- for i in range(col_list|list|length) %}
+   {%- if i == col_list|list|length-1 %}
+    {{ col_list[i]}} as {{ col_list[i]|get_property('alias')}}
+   {%- else %}
+     {{ col_list[i]}} as {{ col_list[i]|get_property('alias')}},
+   {%- endif %}
+{%- endfor %}
+from {{ table_name}}

@@ -1,0 +1,9 @@
+select
+{%- for i in range(col_list|list|length) %}
+   {%- if i == col_list|list|length-1 %}
+    {{ col_list[i]}}
+   {%- else %}
+     {{ col_list[i]}},
+   {%- endif %}
+{%- endfor %}
+from {{ table_name}}
